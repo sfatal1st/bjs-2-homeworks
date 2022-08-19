@@ -17,12 +17,12 @@ Student.prototype.addMark = function (mark) {
 }
 
 Student.prototype.addMarks = function (...mark) {
-  let b = 0;
+  let start = 0;
   if (this.marks === undefined) {
     this.marks = [mark[0]];
-    b = 1;
+    start = 1;
   } 
-  for (let i = b; i < mark.length; i += 1){
+  for (let i = start; i < mark.length; i += 1){
     this.marks.push(mark[i]); 
   } 
 }
