@@ -59,7 +59,7 @@ class AlarmClock {
 
     clearAlarms() {
         this.stop();
-        this.alarmCollection.forEach((item) => this.removeClock(item.id));
+        this.alarmCollection = [];
     }
 
 }
