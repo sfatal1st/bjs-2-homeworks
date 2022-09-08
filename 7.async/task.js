@@ -1,9 +1,7 @@
 class AlarmClock {
-    constructor(time, id) {
+    constructor() {
         this.alarmCollection = [];
         this.timerId = null;
-        this.time = time;
-        this.id = id;
     }
 
     addClock(time, callback, id) {
@@ -13,8 +11,7 @@ class AlarmClock {
         if (this.alarmCollection.find(item => item.id === id )) {
             return console.error("Будильник с таким id существует.");
         }     
-        this.alarmCollection.push({id: id, time: time, callback: callback});
-        return;
+        this.alarmCollection.push({id, time, callback});
     }
 
     printAlarms() {
@@ -31,7 +28,9 @@ class AlarmClock {
             console.log("Список звонков после удаления:");
             this.printAlarms();
             return true;
-        } else return false;
+        } else {
+        return false;
+        }
     }
 
     getCurrentFormattedTime() {
@@ -41,12 +40,13 @@ class AlarmClock {
     }
 
     start() {
-        let checkClock = (time) => {if (time === this.getCurrentFormattedTime()) 
-            {return this.alarmCollection[this.alarmCollection.indexOf(
-                    this.alarmCollection.find(item => item.time === time))].callback();}
+        let checkClock = (time, callback) => {
+            if (time === this.getCurrentFormattedTime()) {
+                return callback();
+            }
         }
         if (!this.timerId) {
-            this.timerId = setInterval(() => this.alarmCollection.forEach((item) => checkClock(item.time)), 10000);
+            this.timerId = setInterval(() => this.alarmCollection.forEach((item) => checkClock(item.time, item.callback)), 10000);
         }
     }
 
